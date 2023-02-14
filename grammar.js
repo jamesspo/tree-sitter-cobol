@@ -525,7 +525,6 @@ module.exports = grammar({
       $.relative_key_clause,
       $.reserve_clause,
       $.sharing_clause,
-      $.error,
       $.nominal_key_clause,
     ),
 
@@ -695,8 +694,6 @@ module.exports = grammar({
       )
     ),
 
-    error: $ => /todo_error/,
-
     nominal_key_clause: $ => seq(
       $._NOMINAL,
       optional($._KEY),
@@ -760,7 +757,6 @@ module.exports = grammar({
       $.recording_mode_clause,
       $.code_set_clause,
       $.report_clase,
-      $.error,
     ),
 
     block_contains_clause: $ => prec.left(seq(
@@ -931,7 +927,6 @@ module.exports = grammar({
       $.value_clause,
       $.renames_clause,
       $.any_length_clause,
-      $.error
     ),
 
     redefines_clause: $ => seq(
