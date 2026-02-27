@@ -6365,8 +6365,41 @@
           "value": "."
         },
         {
-          "type": "SYMBOL",
-          "name": "record_description_list"
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_description"
+                  },
+                  {
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "STRING",
+                      "value": "."
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "execute_statement"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },
@@ -12416,6 +12449,40 @@
         }
       ]
     },
+    "cics_reference": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "WORD"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_literal"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
+    },
     "_x": {
       "type": "CHOICE",
       "members": [
@@ -12525,6 +12592,10 @@
         {
           "type": "SYMBOL",
           "name": "function_"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cics_reference"
         },
         {
           "type": "SYMBOL",
@@ -19263,15 +19334,15 @@
     },
     "_NOT_EQUAL": {
       "type": "PATTERN",
-      "value": "(!=)|([nN][oO][tT][ \\t]+(([eE][qQ][uU][aA][lL])|=))"
+      "value": "(!=)|([nN][oO][tT][ \\t]*(([eE][qQ][uU][aA][lL])|=))"
     },
     "_NOT_LESS": {
       "type": "PATTERN",
-      "value": "([nN][oO][tT][ \\t]+(<|[lL][eE][sS][sS]))"
+      "value": "([nN][oO][tT][ \\t]*(<|[lL][eE][sS][sS]))"
     },
     "_NOT_GREATER": {
       "type": "PATTERN",
-      "value": "([nN][oO][tT][ \\t]+(>|[gG][rR][eE][aA][tT][eE][rR]))"
+      "value": "([nN][oO][tT][ \\t]*(>|[gG][rR][eE][aA][tT][eE][rR]))"
     },
     "NOT_OMITTED": {
       "type": "PATTERN",

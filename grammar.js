@@ -1235,7 +1235,10 @@ module.exports = grammar({
       $._LOCAL_STORAGE,
       $._SECTION,
       '.',
-      $.record_description_list
+      repeat(choice(
+        seq($.data_description, repeat1('.')),
+        seq($.execute_statement, '.')
+      ))
     ),
 
     linkage_section: $ => seq(
@@ -2246,6 +2249,15 @@ module.exports = grammar({
       field('dst', $._target_x_list)
     ),
 
+    // Handles CICS special-register pseudo-functions used without the FUNCTION keyword:
+    // e.g. DFHRESP(NORMAL), DFHRESP(NOTFND), DFHVALUE(CANLNOTFND), DFHRESP2(LENGERR)
+    cics_reference: $ => prec(1, seq(
+      $.WORD,
+      '(',
+      choice($._identifier, $._literal),
+      ')'
+    )),
+
     _x: $ => choice(
       seq($._LENGTH, optional($._OF), choice(
         $._identifier,
@@ -2260,6 +2272,7 @@ module.exports = grammar({
       )),
       $._literal,
       $.function_,
+      $.cics_reference,
       $.linage_counter,
       $._identifier,
     ),
@@ -3798,9 +3811,9 @@ module.exports = grammar({
 
     COMPUTATIONAL: $ => $._COMPUTATIONAL,
     _COMPUTATIONAL: $ => /[cC][oO][mM][pP][uU][tT][aA][tT][iI][oO][nN][aA][lL]/,
-    _NOT_EQUAL: $ => /(!=)|([nN][oO][tT][ \t]+(([eE][qQ][uU][aA][lL])|=))/,
-    _NOT_LESS: $ => /([nN][oO][tT][ \t]+(<|[lL][eE][sS][sS]))/,
-    _NOT_GREATER: $ => /([nN][oO][tT][ \t]+(>|[gG][rR][eE][aA][tT][eE][rR]))/,
+    _NOT_EQUAL: $ => /(!=)|([nN][oO][tT][ \t]*(([eE][qQ][uU][aA][lL])|=))/,
+    _NOT_LESS: $ => /([nN][oO][tT][ \t]*(<|[lL][eE][sS][sS]))/,
+    _NOT_GREATER: $ => /([nN][oO][tT][ \t]*(>|[gG][rR][eE][aA][tT][eE][rR]))/,
 
     NOT_OMITTED: $ => /[nN][oO][tT][ \t]+[oO][mM][iI][tT][tT][eE][dD]/,
     NOT_NUMERIC: $ => /[nN][oO][tT][ \t]+[nN][uU][mM][eE][rR][iI][cC]/,

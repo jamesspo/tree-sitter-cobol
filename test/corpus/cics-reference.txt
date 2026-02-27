@@ -1,0 +1,43 @@
+====================================
+DFHRESP in IF NOT= comparison
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-CICS-RESP PIC S9(8) COMP.
+       PROCEDURE DIVISION.
+           IF WS-CICS-RESP NOT= DFHRESP(NORMAL)
+               DISPLAY 'ERROR'
+           END-IF.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9))
+          (usage_clause
+            (COMP)))))
+    (procedure_division
+      (if_header
+        condition: (expr
+          (qualified_word
+            (WORD))
+          (ne)
+          (cics_reference
+            (WORD)
+            (qualified_word
+              (WORD)))))
+      (display_statement
+        (string))
+      (END_IF)
+      (period)
+      (stop_statement)
+      (period))))
