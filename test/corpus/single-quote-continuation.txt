@@ -1,0 +1,29 @@
+================================================================================
+Single-quoted continuation string (column-6 '-' indicator)
+================================================================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TESTPROG.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-HTML.
+           88  HTML-VAL VALUE '<table align="center" frame="box" styl
+      -             'e="width:70%;">'.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name))
+        (data_description
+          (level_number)
+          (entry_name)
+          (value_clause
+            (value_item
+              (string))))))))

@@ -3640,7 +3640,7 @@
     "fields": {
       "comment": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "comment_entry",
@@ -4471,6 +4471,37 @@
     "type": "entry_name",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "entry_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "h_string",
+          "named": true
+        },
+        {
+          "type": "n_string",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "x_string",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "environment_division",
@@ -9481,6 +9512,10 @@
           "named": true
         },
         {
+          "type": "entry_statement",
+          "named": true
+        },
+        {
           "type": "eop",
           "named": true
         },
@@ -9817,6 +9852,10 @@
         },
         {
           "type": "else_if_header",
+          "named": true
+        },
+        {
+          "type": "entry_statement",
           "named": true
         },
         {

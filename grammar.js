@@ -122,7 +122,7 @@ module.exports = grammar({
 
     date_compiled_section: $ => seq(
       $._DATE_COMPILED, '.',
-      field('comment', repeat1($.comment_entry)),
+      field('comment', repeat($.comment_entry)),
     ),
 
     security_section: $ => seq(
@@ -746,7 +746,7 @@ module.exports = grammar({
     file_description: $ => seq(
       $.file_type,
       $.file_description_entry,
-      $.record_description_list
+      optional($.record_description_list)
     ),
 
     file_type: $ => choice(
@@ -888,7 +888,7 @@ module.exports = grammar({
       $._WORKING_STORAGE, $._SECTION, '.',
       repeat(choice(
         seq($.data_description, repeat1('.')),
-        seq($.execute_statement, '.')
+        seq($.execute_statement, optional('.'))
       ))
     ),
 
@@ -1237,7 +1237,7 @@ module.exports = grammar({
       '.',
       repeat(choice(
         seq($.data_description, repeat1('.')),
-        seq($.execute_statement, '.')
+        seq($.execute_statement, optional('.'))
       ))
     ),
 
@@ -1418,6 +1418,7 @@ module.exports = grammar({
       $.write_statement,
       $.next_sentence_statement,
       $.execute_statement,
+      $.entry_statement,
     ),
 
     _end_statement: $ => choice(
@@ -2750,6 +2751,13 @@ module.exports = grammar({
     ),
 
     next_sentence_statement: $ => seq($._NEXT, $._SENTENCE),
+
+    // IMS COBOL entry-point statement: ENTRY 'literal' [USING id-1 [id-2 ...]]
+    entry_statement: $ => seq(
+      $._ENTRY,
+      $._LITERAL,
+      optional(seq($._USING, repeat1($._WORD)))
+    ),
 
     execute_statement: $ => seq($.execute_header, $.execute_body, $.execute_end),
 

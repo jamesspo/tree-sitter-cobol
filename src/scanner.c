@@ -164,15 +164,22 @@ bool tree_sitter_COBOL_external_scanner_scan(void *payload, TSLexer *lexer,
     }
 
     if(valid_symbols[multiline_string]) {
+        // Accept either single-quoted or double-quoted strings that span
+        // continuation lines (indicated by '-' at column 6 of the next line).
+        int quote_char = lexer->lookahead;
+        if(quote_char != '"' && quote_char != '\'') {
+            return false;
+        }
         while(true) {
-            if(lexer->lookahead != '"') {
+            if(lexer->lookahead != quote_char) {
                 return false;
             }
             lexer->advance(lexer, false);
-            while(lexer->lookahead != '"' && lexer->lookahead != 0 && lexer->get_column(lexer) < 72) {
+            while(lexer->lookahead != quote_char && lexer->lookahead != 0
+                  && lexer->lookahead != '\n' && lexer->get_column(lexer) < 72) {
                 lexer->advance(lexer, false);
             }
-            if(lexer->lookahead == '"') {
+            if(lexer->lookahead == quote_char) {
                 lexer->result_symbol = multiline_string;
                 lexer->advance(lexer, false);
                 lexer->mark_end(lexer);

@@ -1,0 +1,55 @@
+================================================================================
+IMS ENTRY statement - simple form
+================================================================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TESTPROG.
+       PROCEDURE DIVISION USING PAUTBPCB.
+       MAIN-PARA.
+           ENTRY 'DLITCBL' USING PAUTBPCB.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (procedure_using_chaining
+        (USING)
+        (procedure_param))
+      (paragraph_header)
+      (entry_statement
+        (string))
+      (period))))
+
+================================================================================
+IMS ENTRY statement - multiple USING params
+================================================================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TESTPROG.
+       PROCEDURE DIVISION USING PAUTBPCB
+                                PASFLPCB
+                                PADFLPCB.
+       MAIN-PARA.
+           ENTRY 'DLITCBL' USING PAUTBPCB
+                                 PASFLPCB
+                                 PADFLPCB.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (procedure_using_chaining
+        (USING)
+        (procedure_param)
+        (procedure_param)
+        (procedure_param))
+      (paragraph_header)
+      (entry_statement
+        (string))
+      (period))))

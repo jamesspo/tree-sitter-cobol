@@ -1,0 +1,64 @@
+================================================================================
+DATE-COMPILED with no body (followed directly by ENVIRONMENT DIVISION)
+================================================================================
+
+000100 IDENTIFICATION DIVISION.
+000200 PROGRAM-ID.           TESTPROG IS INITIAL.
+000300 AUTHOR.               AWS.
+000400 DATE-WRITTEN.         03/21.
+000500 DATE-COMPILED.
+000600
+000700 ENVIRONMENT DIVISION.
+000800
+000900 DATA DIVISION.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name)
+      (is_initial)
+      (author_section
+        (comment_entry))
+      (date_written_section
+        (comment_entry))
+      (date_compiled_section))
+    (environment_division)
+    (data_division)))
+
+================================================================================
+FD with COPY as record layout (no inline data items)
+================================================================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TESTPROG.
+       DATA DIVISION.
+       FILE SECTION.
+       FD  CUSTOMER-FILE.
+       COPY CVCUS01Y.
+       FD  ACCOUNT-FILE.
+       COPY CVACT01Y.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (file_section
+        (file_description
+          (file_type
+            (FD))
+          (file_description_entry
+            (WORD)))
+        (copy_statement
+          (WORD))
+        (file_description
+          (file_type
+            (FD))
+          (file_description_entry
+            (WORD))))))
+  (copy_statement
+    (WORD)))

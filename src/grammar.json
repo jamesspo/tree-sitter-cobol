@@ -361,7 +361,7 @@
           "type": "FIELD",
           "name": "comment",
           "content": {
-            "type": "REPEAT1",
+            "type": "REPEAT",
             "content": {
               "type": "SYMBOL",
               "name": "comment_entry"
@@ -3482,8 +3482,16 @@
           "name": "file_description_entry"
         },
         {
-          "type": "SYMBOL",
-          "name": "record_description_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "record_description_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4494,8 +4502,16 @@
                     "name": "execute_statement"
                   },
                   {
-                    "type": "STRING",
-                    "value": "."
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "."
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
                   }
                 ]
               }
@@ -6402,8 +6418,16 @@
                     "name": "execute_statement"
                   },
                   {
-                    "type": "STRING",
-                    "value": "."
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "."
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
                   }
                 ]
               }
@@ -7266,6 +7290,10 @@
         {
           "type": "SYMBOL",
           "name": "execute_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "entry_statement"
         }
       ]
     },
@@ -15511,6 +15539,43 @@
         {
           "type": "SYMBOL",
           "name": "_SENTENCE"
+        }
+      ]
+    },
+    "entry_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_ENTRY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_LITERAL"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_USING"
+                },
+                {
+                  "type": "REPEAT1",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_WORD"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

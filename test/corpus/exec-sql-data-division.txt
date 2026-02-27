@@ -1,0 +1,44 @@
+================================================================================
+Single-line EXEC SQL INCLUDE in WORKING-STORAGE (no trailing period)
+================================================================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TESTPROG.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+           EXEC SQL INCLUDE SQLCA END-EXEC
+           EXEC SQL INCLUDE DCLTRTYP END-EXEC
+       01  WS-FLAGS.
+           05  WS-FLAG1         PIC X(1) VALUE SPACES.
+
+--------------------------------------------------------------------------------
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (execute_statement
+          (execute_header
+            (EXEC))
+          (execute_body)
+          (execute_end
+            (END_EXEC)))
+        (execute_statement
+          (execute_header
+            (EXEC))
+          (execute_body)
+          (execute_end
+            (END_EXEC)))
+        (data_description
+          (level_number)
+          (entry_name))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x))
+          (value_clause
+            (value_item
+              (SPACE))))))))
