@@ -1,0 +1,40 @@
+====================================
+PROCESS directive
+====================================
+       PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+---
+(start
+  (compiler_directive)
+  (program_definition
+    (identification_division
+      (program_name))))
+
+====================================
+CBL directive
+====================================
+       CBL CICS('SP,EDF,DLI')
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+---
+(start
+  (compiler_directive)
+  (program_definition
+    (identification_division
+      (program_name))))
+
+====================================
+Multiple directives
+====================================
+       PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)
+       CBL CICS('SP,EDF')
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+---
+(start
+  (compiler_directive)
+  (compiler_directive)
+  (program_definition
+    (identification_division
+      (program_name))))

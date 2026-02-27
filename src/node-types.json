@@ -12238,9 +12238,13 @@
     "root": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "compiler_directive",
+          "named": true
+        },
         {
           "type": "copybook_definition",
           "named": true
@@ -14672,6 +14676,10 @@
   },
   {
     "type": "comment_entry",
+    "named": true
+  },
+  {
+    "type": "compiler_directive",
     "named": true
   },
   {

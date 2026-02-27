@@ -32,10 +32,21 @@ module.exports = grammar({
   ],
 
   rules: {
-    start: $ => choice(
-      $.program_definition,
-      $.copybook_definition
-      //optional($.function_definition) //todo
+    start: $ => seq(
+      repeat($.compiler_directive),
+      choice(
+        $.program_definition,
+        $.copybook_definition,
+        //$.function_definition //todo
+      )
+    ),
+
+    // Compiler control directives that appear before IDENTIFICATION DIVISION.
+    // Examples: PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)
+    //           CBL CICS('SP,EDF,DLI')
+    //           CBL SQL
+    compiler_directive: $ => token(
+      /([pP][rR][oO][cC][eE][sS][sS]|[cC][bB][lL])[^\n]*/
     ),
 
     _LINE_COMMENT_ALIAS: $ => alias($._LINE_COMMENT, $.comment),

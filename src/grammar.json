@@ -4,17 +4,36 @@
   "word": "_WORD",
   "rules": {
     "start": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "program_definition"
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "compiler_directive"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "copybook_definition"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "program_definition"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "copybook_definition"
+            }
+          ]
         }
       ]
+    },
+    "compiler_directive": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "([pP][rR][oO][cC][eE][sS][sS]|[cC][bB][lL])[^\\n]*"
+      }
     },
     "_LINE_COMMENT_ALIAS": {
       "type": "ALIAS",
