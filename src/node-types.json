@@ -3393,6 +3393,21 @@
     }
   },
   {
+    "type": "copybook_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "crt_status_clause",
     "named": true,
     "fields": {},
@@ -12223,9 +12238,13 @@
     "root": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
+        {
+          "type": "copybook_definition",
+          "named": true
+        },
         {
           "type": "program_definition",
           "named": true
