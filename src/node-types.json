@@ -3373,6 +3373,21 @@
     }
   },
   {
+    "type": "copybook_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "crt_status_clause",
     "named": true,
     "fields": {},
@@ -4389,21 +4404,6 @@
     }
   },
   {
-    "type": "end_function",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "program_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "end_program",
     "named": true,
     "fields": {},
@@ -5389,25 +5389,6 @@
         },
         {
           "type": "x_string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "function_division",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "as_literal",
-          "named": true
-        },
-        {
-          "type": "program_name",
           "named": true
         }
       ]
@@ -12146,11 +12127,16 @@
   {
     "type": "start",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
+        {
+          "type": "copybook_definition",
+          "named": true
+        },
         {
           "type": "program_definition",
           "named": true
@@ -14573,7 +14559,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "comment_entry",
