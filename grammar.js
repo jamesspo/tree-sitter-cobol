@@ -1039,7 +1039,7 @@ module.exports = grammar({
 
     pow_exp: $ => prec.left(3, seq(
       field('left', $._exp),
-      '^',
+      choice('^', '**'),
       field('right', $._exp)
     )),
 

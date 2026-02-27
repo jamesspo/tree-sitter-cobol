@@ -1,0 +1,37 @@
+====================================
+Continuation line indicator - in column 7
+====================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 LOOP-COUNTER PIC 9(4).
+       PROCEDURE DIVISION.
+           DISPLAY LOOP-COUNTER ": BINARY: "
+      -            " | DECIMAL? ".
+           STOP RUN.
+
+---
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))))
+    (procedure_division
+      (display_statement
+        (qualified_word
+          (WORD))
+        (string)
+        (comment)
+        (string))
+      (period)
+      (stop_statement)
+      (period))))

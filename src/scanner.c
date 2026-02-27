@@ -127,6 +127,13 @@ bool tree_sitter_COBOL_external_scanner_scan(void *payload, TSLexer *lexer,
                 lexer->result_symbol = LINE_COMMENT;
                 lexer->mark_end(lexer);
                 return true;
+            } else if(lexer->lookahead == '-') {
+                // Continuation line indicator: consume the '-' at column 6 and
+                // emit as LINE_COMMENT so the rest of the line parses normally.
+                lexer->advance(lexer, true);
+                lexer->result_symbol = LINE_COMMENT;
+                lexer->mark_end(lexer);
+                return true;
             } else {
                 lexer->advance(lexer, true);
                 lexer->mark_end(lexer);

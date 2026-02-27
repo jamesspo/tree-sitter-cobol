@@ -1,0 +1,119 @@
+====================================
+Exponentiation ** in function argument (FUNCTION SQRT)
+====================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 X PIC 9(10).
+       01 NUMERATOR PIC 9(10).
+       PROCEDURE DIVISION.
+           COMPUTE NUMERATOR ROUNDED = FUNCTION SQRT(X ** 2).
+           STOP RUN.
+
+---
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))))
+    (procedure_division
+      (compute_statement
+        left: (arithmetic_x
+          (qualified_word
+            (WORD))
+          (ROUNDED))
+        right: (expr
+          (function_
+            (WORD)
+            (func_args
+              (pow_exp
+                left: (qualified_word
+                  (WORD))
+                right: (number
+                  (integer)))))))
+      (period)
+      (stop_statement)
+      (period))))
+
+====================================
+Exponentiation ** in nested function argument (multi-line COMPUTE)
+====================================
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 X PIC 9(10).
+       01 PULLEY-DIAMETER-DIFF PIC 9(10).
+       01 NUMERATOR PIC 9(10).
+       PROCEDURE DIVISION.
+           COMPUTE NUMERATOR ROUNDED = X + FUNCTION SQRT(X ** 2 - 32 *
+                   (PULLEY-DIAMETER-DIFF ** 2)).
+           STOP RUN.
+
+---
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))))
+    (procedure_division
+      (compute_statement
+        left: (arithmetic_x
+          (qualified_word
+            (WORD))
+          (ROUNDED))
+        right: (expr
+          (qualified_word
+            (WORD))
+          (function_
+            (WORD)
+            (func_args
+              (sub_exp
+                left: (pow_exp
+                  left: (qualified_word
+                    (WORD))
+                  right: (number
+                    (integer)))
+                right: (mul_exp
+                  left: (number
+                    (integer))
+                  right: (pow_exp
+                    left: (qualified_word
+                      (WORD))
+                    right: (number
+                      (integer)))))))))
+      (period)
+      (stop_statement)
+      (period))))
