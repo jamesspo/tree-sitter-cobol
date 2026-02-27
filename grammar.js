@@ -1396,6 +1396,7 @@ module.exports = grammar({
       $.use_statement,
       $.write_statement,
       $.next_sentence_statement,
+      $.execute_statement,
     ),
 
     _end_statement: $ => choice(
@@ -1419,6 +1420,8 @@ module.exports = grammar({
       $.END_START,
       $.END_STRING,
       $.END_UNSTRING,
+      $.END_EXECUTE,
+      $.END_EXEC,
       $.period
     ),
 
@@ -2710,6 +2713,20 @@ module.exports = grammar({
 
     next_sentence_statement: $ => seq($._NEXT, $._SENTENCE),
 
+    execute_statement: $ => seq($.execute_header, $.execute_body, $.execute_end),
+
+    execute_header: $ => choice(
+      $.EXEC,
+      $.EXECUTE,
+    ),
+
+    execute_body: $ => repeat1($.WORD),
+
+    execute_end: $ => choice(
+      $.END_EXECUTE,
+      $.END_EXEC,
+    ),
+
     _simple_value: $ => choice(
       $._identifier,
       $._basic_literal
@@ -2972,6 +2989,8 @@ module.exports = grammar({
     _END_SUBTRACT: $ => /[eE][nN][dD]-[sS][uU][bB][tT][rR][aA][cC][tT]/,
     _END_UNSTRING: $ => /[eE][nN][dD]-[uU][nN][sS][tT][rR][iI][nN][gG]/,
     _END_WRITE: $ => /[eE][nN][dD]-[wW][rR][iI][tT][eE]/,
+    _END_EXECUTE: $ => /[eE][nN][dD]-[eE][xX][eE][cC][uU][tT][eE]/,
+    _END_EXEC: $ => /[eE][nN][dD]-[eE][xX][eE][cC]/,
     _ENTRY: $ => /[eE][nN][tT][rR][yY]/,
     _ENVIRONMENT: $ => /[eE][nN][vV][iI][rR][oO][nN][mM][eE][nN][tT]/,
     _ENVIRONMENT_NAME: $ => /[eE][nN][vV][iI][rR][oO][nN][mM][eE][nN][tT]-[nN][aA][mM][eE]/,
@@ -3096,6 +3115,8 @@ module.exports = grammar({
     _NATIVE: $ => /[nN][aA][tT][iI][vV][eE]/,
     _NEGATIVE: $ => /[nN][eE][gG][aA][tT][iI][vV][eE]/,
     _NEXT: $ => /[nN][eE][xX][tT]/,
+    _EXECUTE: $ => /[eE][xX][eE][cC][uU][tT][eE]/,
+    _EXEC: $ => /[eE][xX][eE][cC]/,
     _NEXT_SENTENCE: $ => /[nN][eE][xX][tT]-[sS][eE][nN][tT][eE][nN][cC][eE]/,
     _NO: $ => /[nN][oO]/,
     _NOMINAL: $ => /[nN][oO][mM][iI][nN][aA][lL]/,
@@ -3438,6 +3459,8 @@ module.exports = grammar({
     END_SUBTRACT: $ => $._END_SUBTRACT,
     END_UNSTRING: $ => $._END_UNSTRING,
     END_WRITE: $ => $._END_WRITE,
+    END_EXECUTE: $ => $._END_EXECUTE,
+    END_EXEC: $ => $._END_EXEC,
     //ENTRY: $ => $._ENTRY,
     ENVIRONMENT: $ => $._ENVIRONMENT,
     //ENVIRONMENT_NAME: $ => $._ENVIRONMENT_NAME,
@@ -3548,6 +3571,8 @@ module.exports = grammar({
     ////NE: $ => $._NE,
     NEGATIVE: $ => $._NEGATIVE,
     NEXT: $ => $._NEXT,
+    EXECUTE: $ => $._EXECUTE,
+    EXEC: $ => $._EXEC,
     //NEXT_SENTENCE: $ => $._NEXT_SENTENCE,
     NO: $ => $._NO,
     //NOMINAL: $ => $._NOMINAL,
