@@ -4468,18 +4468,36 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
+            "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "data_description"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_description"
+                  },
+                  {
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "STRING",
+                      "value": "."
+                    }
+                  }
+                ]
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "STRING",
-                  "value": "."
-                }
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "execute_statement"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  }
+                ]
               }
             ]
           }
@@ -6368,8 +6386,16 @@
           "value": "."
         },
         {
-          "type": "SYMBOL",
-          "name": "record_description_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "record_description_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

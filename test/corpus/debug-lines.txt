@@ -1,0 +1,35 @@
+====================================
+Debug line with D indicator
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       PROCEDURE DIVISION.
+      D    DISPLAY 'DEBUG MESSAGE'.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (comment)
+      (stop_statement)
+      (period))))
+
+====================================
+Debug line with lowercase d indicator
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       PROCEDURE DIVISION.
+      d    DISPLAY 'DEBUG MESSAGE'.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (comment)
+      (stop_statement)
+      (period))))

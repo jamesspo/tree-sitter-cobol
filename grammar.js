@@ -886,7 +886,10 @@ module.exports = grammar({
 
     working_storage_section: $ => seq(
       $._WORKING_STORAGE, $._SECTION, '.',
-      repeat(seq($.data_description, repeat1('.')))
+      repeat(choice(
+        seq($.data_description, repeat1('.')),
+        seq($.execute_statement, '.')
+      ))
     ),
 
     data_description: $ => choice(
@@ -1237,7 +1240,7 @@ module.exports = grammar({
 
     linkage_section: $ => seq(
       $._LINKAGE, $._SECTION, '.',
-      $.record_description_list
+      optional($.record_description_list)
     ),
 
     report_section: $ => /report_section/,

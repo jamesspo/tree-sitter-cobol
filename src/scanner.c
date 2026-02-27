@@ -119,7 +119,8 @@ bool tree_sitter_COBOL_external_scanner_scan(void *payload, TSLexer *lexer,
 
     if(valid_symbols[LINE_COMMENT]) {
         if(lexer->get_column(lexer) == 6) {
-            if(lexer->lookahead == '*' || lexer->lookahead == '/') {
+            if(lexer->lookahead == '*' || lexer->lookahead == '/' ||
+               lexer->lookahead == 'D' || lexer->lookahead == 'd') {
                 while(lexer->lookahead != '\n' && lexer->lookahead != 0) {
                     lexer->advance(lexer, true);
                 }

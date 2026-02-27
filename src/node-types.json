@@ -3341,6 +3341,7 @@
   {
     "type": "copy_statement",
     "named": true,
+    "extra": true,
     "fields": {
       "book": {
         "multiple": false,
@@ -7061,7 +7062,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "record_description_list",
@@ -14170,6 +14171,10 @@
       "types": [
         {
           "type": "data_description",
+          "named": true
+        },
+        {
+          "type": "execute_statement",
           "named": true
         }
       ]
