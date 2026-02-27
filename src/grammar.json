@@ -7391,6 +7391,10 @@
         {
           "type": "SYMBOL",
           "name": "period"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "execute_statement"
         }
       ]
     },
@@ -16085,6 +16089,18 @@
                         "type": "BLANK"
                       }
                     ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "func_refmod"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
                   }
                 ]
               }
@@ -16281,7 +16297,7 @@
     },
     "decimal": {
       "type": "PATTERN",
-      "value": "[+-]?[0-9]*\\.[0-9]+"
+      "value": "[+-]?[0-9]+\\.[0-9]+"
     },
     "_string": {
       "type": "CHOICE",
@@ -19506,7 +19522,12 @@
       "name": "comment"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "_statement",
+      "_end_statement"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {

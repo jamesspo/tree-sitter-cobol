@@ -154,6 +154,9 @@ bool tree_sitter_COBOL_external_scanner_scan(void *payload, TSLexer *lexer,
     }
 
     if(valid_symbols[COMMENT_ENTRY]) {
+        if(lexer->lookahead == '\n' || lexer->lookahead == 0) {
+            return false;
+        }
         if(!start_with_word(lexer, any_content_keyword, number_of_comment_entry_keywords)) {
             lexer->mark_end(lexer);
             lexer->result_symbol = COMMENT_ENTRY;

@@ -1,0 +1,92 @@
+====================================
+function result reference modification
+====================================
+       identification division.
+       program-id. a.
+       data division.
+       working-storage section.
+       01 WS-DATE PIC X(10).
+       procedure division.
+       0000-MAIN.
+           MOVE FUNCTION CURRENT-DATE(1:4) TO WS-DATE(1:4).
+---
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))))
+    (procedure_division
+      (paragraph_header)
+      (move_statement
+        src: (function_
+          (WORD)
+          (func_refmod
+            (number
+              (integer))
+            (number
+              (integer))))
+        dst: (qualified_word
+          (WORD))
+        dst: (refmod
+          (number
+            (integer))
+          (number
+            (integer))))
+      (period))))
+
+====================================
+function with args then reference modification
+====================================
+       identification division.
+       program-id. a.
+       data division.
+       working-storage section.
+       01 WS-RESULT PIC X(5).
+       01 WS-STR PIC X(20) VALUE 'HELLO WORLD'.
+       procedure division.
+       0000-MAIN.
+           MOVE FUNCTION UPPER-CASE(WS-STR)(1:5) TO WS-RESULT.
+---
+
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x))
+          (value_clause
+            (value_item
+              (string))))))
+    (procedure_division
+      (paragraph_header)
+      (move_statement
+        src: (function_
+          (WORD)
+          (func_args
+            (qualified_word
+              (WORD)))
+          (func_refmod
+            (number
+              (integer))
+            (number
+              (integer))))
+        dst: (qualified_word
+          (WORD)))
+      (period))))

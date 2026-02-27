@@ -32,6 +32,13 @@ module.exports = grammar({
     $.comment,
   ],
 
+  conflicts: $ => [
+    // execute_statement can serve as the final statement before a paragraph/section
+    // header (when no trailing period is written after END-EXEC), which makes it
+    // ambiguous with its role as a normal _statement inside _end_statement's rule.
+    [$._statement, $._end_statement],
+  ],
+
   rules: {
     start: $ => seq(
       repeat($.compiler_directive),
@@ -1444,7 +1451,8 @@ module.exports = grammar({
       $.END_UNSTRING,
       $.END_EXECUTE,
       $.END_EXEC,
-      $.period
+      $.period,
+      $.execute_statement,
     ),
 
     period: $ => '.',
@@ -2811,7 +2819,7 @@ module.exports = grammar({
       seq($.TRIM_FUNCTION, '(', $._trim_args, ')', optional($.func_refmod)),
       seq($.NUMVALC_FUNC, '(', $._numvalc_args, ')'),
       seq($.LOCALE_DT_FUNC, '(', $._locale_dt_args, ')', optional($.func_refmod)),
-      seq($.WORD, optional($.func_args)),
+      seq($.WORD, optional($.func_args), optional($.func_refmod)),
     ))),
 
     func_refmod: $ => choice(
@@ -2850,7 +2858,7 @@ module.exports = grammar({
     //todo
     number: $ => choice($.integer, $.decimal),
     integer: $ => /[+-]?[0-9,]+/,
-    decimal: $ => /[+-]?[0-9]*\.[0-9]+/,
+    decimal: $ => /[+-]?[0-9]+\.[0-9]+/,
     _string: $ => choice(
       $.string,
       $.x_string,
