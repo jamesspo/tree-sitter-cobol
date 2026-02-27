@@ -1480,11 +1480,17 @@ module.exports = grammar({
       '.'
     ),
 
+    // Pseudo-text delimiters: ==text== (may contain spaces, hyphens, dots, etc.)
+    pseudo_text: $ => /==[^=]*==/,
+
     replacing_clause: $ => seq(
-      field('leading_or_trailing', optional(choice($.LEADING, $.TRAILING))),
-      field('x', choice($.WORD, $.string)),
-      optional($._BY),
-      field('by', choice($.WORD, $.string)),
+      $._REPLACING,
+      repeat1(seq(
+        field('leading_or_trailing', optional(choice($.LEADING, $.TRAILING))),
+        field('x', choice($.WORD, $.string, $.pseudo_text)),
+        optional($._BY),
+        field('by', choice($.WORD, $.string, $.pseudo_text)),
+      ))
     ),
 
     start_statement: $ => seq(

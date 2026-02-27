@@ -1,0 +1,77 @@
+====================================
+COPY REPLACING word by word
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       LINKAGE SECTION.
+       COPY MYBOOK REPLACING OLDNAME BY NEWNAME.
+       PROCEDURE DIVISION.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (linkage_section))
+    (copy_statement
+      book: (WORD)
+      (replacing_clause
+        x: (WORD)
+        by: (WORD)))
+    (procedure_division
+      (stop_statement)
+      (period))))
+
+====================================
+COPY REPLACING pseudo-text
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY SORTCODE REPLACING ==SORTCODE== BY ==LITERAL-SORTCODE==.
+       PROCEDURE DIVISION.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section))
+    (copy_statement
+      book: (WORD)
+      (replacing_clause
+        x: (pseudo_text)
+        by: (pseudo_text)))
+    (procedure_division
+      (stop_statement)
+      (period))))
+
+====================================
+COPY REPLACING string literal
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY ACCOUNT REPLACING "ACCOUNT" BY "ACCOUNT2".
+       PROCEDURE DIVISION.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section))
+    (copy_statement
+      book: (WORD)
+      (replacing_clause
+        x: (string)
+        by: (string)))
+    (procedure_division
+      (stop_statement)
+      (period))))

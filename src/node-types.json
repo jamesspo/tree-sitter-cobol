@@ -10552,11 +10552,15 @@
     "named": true,
     "fields": {
       "by": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "WORD",
+            "named": true
+          },
+          {
+            "type": "pseudo_text",
             "named": true
           },
           {
@@ -10566,7 +10570,7 @@
         ]
       },
       "leading_or_trailing": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -10580,11 +10584,15 @@
         ]
       },
       "x": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "WORD",
+            "named": true
+          },
+          {
+            "type": "pseudo_text",
             "named": true
           },
           {
@@ -14755,6 +14763,10 @@
   },
   {
     "type": "picture_x",
+    "named": true
+  },
+  {
+    "type": "pseudo_text",
     "named": true
   },
   {
