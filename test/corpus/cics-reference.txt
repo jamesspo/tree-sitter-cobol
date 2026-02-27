@@ -31,10 +31,7 @@ DFHRESP in IF NOT= comparison
           (qualified_word
             (WORD))
           (ne)
-          (cics_reference
-            (WORD)
-            (qualified_word
-              (WORD)))))
+          (cics_reference)))
       (display_statement
         (string))
       (END_IF)

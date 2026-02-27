@@ -12450,37 +12450,10 @@
       ]
     },
     "cics_reference": {
-      "type": "PREC",
-      "value": 1,
+      "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "WORD"
-          },
-          {
-            "type": "STRING",
-            "value": "("
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_identifier"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_literal"
-              }
-            ]
-          },
-          {
-            "type": "STRING",
-            "value": ")"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "[dD][fF][hH][a-zA-Z0-9-]*\\([a-zA-Z][a-zA-Z0-9-]*\\)"
       }
     },
     "_x": {

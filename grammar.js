@@ -2251,12 +2251,13 @@ module.exports = grammar({
 
     // Handles CICS special-register pseudo-functions used without the FUNCTION keyword:
     // e.g. DFHRESP(NORMAL), DFHRESP(NOTFND), DFHVALUE(CANLNOTFND), DFHRESP2(LENGERR)
-    cics_reference: $ => prec(1, seq(
-      $.WORD,
-      '(',
-      choice($._identifier, $._literal),
-      ')'
-    )),
+    // Terminal token (not a grammar rule) to avoid parser-table conflicts with
+    // reference-modification syntax: WORD(integer:length) — e.g. INTRTI(1:INTRTL).
+    // All CICS special-register pseudo-functions start with DFH; the argument is
+    // purely alphabetic. This distinguishes them unambiguously from ref-mod (digit start).
+    cics_reference: $ => token(
+      /[dD][fF][hH][a-zA-Z0-9-]*\([a-zA-Z][a-zA-Z0-9-]*\)/
+    ),
 
     _x: $ => choice(
       seq($._LENGTH, optional($._OF), choice(

@@ -1,0 +1,153 @@
+====================================
+Reference modification: integer start, identifier length
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 INTRTI PIC X(10).
+       01 INTRTL PIC 9(4).
+       01 VALID-DATA-SW PIC X.
+       PROCEDURE DIVISION.
+           IF INTRTI(1:INTRTL) IS NOT NUMERIC
+               MOVE 'N' TO VALID-DATA-SW
+           END-IF.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))))
+    (procedure_division
+      (if_header
+        condition: (expr
+          (qualified_word
+            (WORD))
+          (refmod
+            (number
+              (integer))
+            (qualified_word
+              (WORD)))
+          (NOT_NUMERIC)))
+      (move_statement
+        src: (string)
+        dst: (qualified_word
+          (WORD)))
+      (END_IF)
+      (period)
+      (stop_statement)
+      (period))))
+
+====================================
+Reference modification: integer start, integer length
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 CUSTAD1I PIC X(30).
+       PROCEDURE DIVISION.
+           IF CUSTAD1I(1:1) = SPACES
+               STOP RUN
+           END-IF.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))))
+    (procedure_division
+      (if_header
+        condition: (expr
+          (qualified_word
+            (WORD))
+          (refmod
+            (number
+              (integer))
+            (number
+              (integer)))
+          (eq)
+          (SPACE)))
+      (stop_statement)
+      (END_IF)
+      (period)
+      (stop_statement)
+      (period))))
+
+====================================
+Reference modification in INSPECT TALLYING
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 AMTI PIC X(20).
+       01 AMTL PIC 9(4).
+       01 WS-COUNT PIC 9(4).
+       PROCEDURE DIVISION.
+           INSPECT AMTI(1:AMTL) TALLYING
+               WS-COUNT FOR ALL '0'.
+           STOP RUN.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (data_division
+      (working_storage_section
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_x)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))
+        (data_description
+          (level_number)
+          (entry_name)
+          (picture_clause
+            (picture_9)))))
+    (procedure_division
+      (inspect_statement
+        send: (qualified_word
+          (WORD))
+        send: (refmod
+          (number
+            (integer))
+          (qualified_word
+            (WORD)))
+        (inspect_tallying
+          for: (qualified_word
+            (WORD))
+          all: (ALL)
+          two: (string)))
+      (period)
+      (stop_statement)
+      (period))))
