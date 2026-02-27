@@ -15442,11 +15442,8 @@
       ]
     },
     "execute_body": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "WORD"
-      }
+      "type": "SYMBOL",
+      "name": "_execute_body"
     },
     "execute_end": {
       "type": "CHOICE",
@@ -19367,6 +19364,10 @@
     {
       "type": "SYMBOL",
       "name": "_multiline_string"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_execute_body"
     }
   ],
   "inline": [],

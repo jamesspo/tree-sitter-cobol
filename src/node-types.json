@@ -4524,17 +4524,7 @@
   {
     "type": "execute_body",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "WORD",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "execute_end",

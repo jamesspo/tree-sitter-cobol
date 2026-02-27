@@ -1,5 +1,7 @@
 #include "tree_sitter/parser.h"
 #include <wctype.h>
+#include <string.h>
+#include <ctype.h>
 
 enum TokenType {
     WHITE_SPACES,
@@ -8,6 +10,7 @@ enum TokenType {
     LINE_COMMENT,
     COMMENT_ENTRY,
     multiline_string,
+    EXECUTE_BODY,
 };
 
 void *tree_sitter_COBOL_external_scanner_create() {
@@ -191,6 +194,81 @@ bool tree_sitter_COBOL_external_scanner_scan(void *payload, TSLexer *lexer,
                 lexer->advance(lexer, true);
             }
         }
+    }
+
+    if(valid_symbols[EXECUTE_BODY]) {
+        if(lexer->lookahead == 0) {
+            return false;
+        }
+
+        // Consume tokens one "word" at a time until we see END-EXEC or END-EXECUTE.
+        // A "word" here is any run of non-whitespace, non-newline characters.
+        // We stop BEFORE consuming the END-EXEC / END-EXECUTE token so that the
+        // grammar's execute_end rule can match it normally.
+        //
+        // Strategy: consume a word into a small buffer; if it matches END-EXEC or
+        // END-EXECUTE (case-insensitive) AND is at a word boundary, do NOT include
+        // those characters in the token (mark_end was already set before we started
+        // the word) and return. Otherwise, call mark_end to commit the word.
+
+        bool consumed = false;
+
+        while(lexer->lookahead != 0) {
+            // Skip whitespace (mark as "skip" so it's not part of the token)
+            while(is_white_space(lexer->lookahead)) {
+                lexer->advance(lexer, true);
+            }
+            if(lexer->lookahead == '\n' || lexer->lookahead == 0) {
+                break;
+            }
+
+            // Collect the next word (alphanumeric + hyphen, consistent with _WORD)
+            char word[64];
+            int wlen = 0;
+            while(lexer->lookahead != 0 &&
+                  !is_white_space(lexer->lookahead) &&
+                  lexer->lookahead != '\n' &&
+                  (isalnum(lexer->lookahead) || lexer->lookahead == '-') &&
+                  wlen < 63) {
+                word[wlen++] = (char)toupper(lexer->lookahead);
+                lexer->advance(lexer, false);
+            }
+            word[wlen] = '\0';
+
+            if(wlen == 0) {
+                // Non-word punctuation character (e.g. '(', ')', '.', '\'')
+                // Include it in the body token
+                lexer->advance(lexer, false);
+                lexer->mark_end(lexer);
+                consumed = true;
+                continue;
+            }
+
+            // Check if this word is END-EXEC or END-EXECUTE
+            bool is_end_exec    = (strcmp(word, "END-EXEC")    == 0);
+            bool is_end_execute = (strcmp(word, "END-EXECUTE") == 0);
+
+            if(is_end_exec || is_end_execute) {
+                // Do NOT include this word in the token.
+                // mark_end was last set before we started consuming this word,
+                // so returning true here gives a token that ends before END-EXEC.
+                if(consumed) {
+                    lexer->result_symbol = EXECUTE_BODY;
+                    return true;
+                }
+                return false;
+            }
+
+            // Not END-EXEC — commit this word into the token
+            lexer->mark_end(lexer);
+            consumed = true;
+        }
+
+        if(consumed) {
+            lexer->result_symbol = EXECUTE_BODY;
+            return true;
+        }
+        return false;
     }
 
     return false;

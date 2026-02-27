@@ -19,6 +19,7 @@ module.exports = grammar({
     $._LINE_COMMENT,
     $.comment_entry,
     $._multiline_string,
+    $._execute_body,
   ],
 
   extras: $ => [
@@ -2734,7 +2735,7 @@ module.exports = grammar({
       $.EXECUTE,
     ),
 
-    execute_body: $ => repeat1($.WORD),
+    execute_body: $ => $._execute_body,
 
     execute_end: $ => choice(
       $.END_EXECUTE,

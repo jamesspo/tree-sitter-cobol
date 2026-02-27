@@ -1,0 +1,65 @@
+====================================
+EXEC SQL single line
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       PROCEDURE DIVISION.
+           EXEC SQL SELECT * FROM ACCOUNTS END-EXEC.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (execute_statement
+        (execute_header
+          (EXEC))
+        (execute_body)
+        (execute_end
+          (END_EXEC)))
+      (period))))
+
+====================================
+EXEC CICS multi-line with keywords
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       PROCEDURE DIVISION.
+           EXEC CICS RETURN
+               TRANSID('OMEN')
+           END-EXEC.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (execute_statement
+        (execute_header
+          (EXEC))
+        (execute_body)
+        (execute_end
+          (END_EXEC)))
+      (period))))
+
+====================================
+EXEC CICS LINK with program name
+====================================
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TEST.
+       PROCEDURE DIVISION.
+           EXEC CICS LINK PROGRAM('INQCUST ')
+           END-EXEC.
+---
+(start
+  (program_definition
+    (identification_division
+      (program_name))
+    (procedure_division
+      (execute_statement
+        (execute_header
+          (EXEC))
+        (execute_body)
+        (execute_end
+          (END_EXEC)))
+      (period))))
